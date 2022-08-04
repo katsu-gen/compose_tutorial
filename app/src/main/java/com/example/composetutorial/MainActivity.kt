@@ -34,3 +34,28 @@ fun MessageCard(name: String) {
 fun PreviewMessageCard() {
     MessageCard("Android")
 }
+
+@Composable
+fun Counter(count: Int, updateCount: (Int) -> Unit) {
+    Button(
+        onClick = { updateCount(count + 1) },
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = if (count > 5) Color.Green else Color.White
+        )
+    ) {
+        Text("I've been clicked $count times")
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCounter() {
+    val counterState = remember { mutableStateOf(0) }
+
+    Counter(
+        count = counterState.value,
+        updateCount = { newCount ->
+            counterState.value = newCount
+        }
+    )
+}
